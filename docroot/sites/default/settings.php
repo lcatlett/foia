@@ -765,3 +765,30 @@ $settings['file_scan_ignore_directories'] = [
 # }
 require DRUPAL_ROOT . "/../vendor/acquia/blt/settings/blt.settings.php";
 $settings['install_profile'] = 'lightning';
+
+/**
+ * Memcache configuration.
+ */
+if ($is_ah_env) {
+  switch ($ah_env) {
+    case 'dev':
+    case 'test':
+    case 'prod':
+      if ($modules && isset($modules['module']['memcache'])) {
+        // Use Memcached extension.
+        $memcached_exists = class_exists('Memcached', FALSE);
+        if ($memcached_exists) {
+          $settings['memcache']['extension'] = 'Memcached';
+        }
+
+        // Use memcache as the default bin.
+        $settings['cache']['default'] = 'cache.backend.memcache';
+
+        // Enable stampede protection.
+        $settings['memcache']['stampede_protection'] = TRUE;
+        // Move locks to memcache.
+        $settings['container_yamls'][] = DRUPAL_ROOT . '/../vendor/acquia/blt/settings/memcache.yml';
+      }
+      break;
+  }
+}
