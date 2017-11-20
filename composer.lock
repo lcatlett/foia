@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1636db17af48b5f5cce9411a1aee68fb",
+    "content-hash": "3275266d2469cf25e2c49ba864574f18",
     "packages": [
         {
             "name": "acquia/blt",
@@ -61,7 +61,10 @@
             ],
             "type": "composer-plugin",
             "extra": {
-                "class": "Acquia\\Blt\\Composer\\Plugin"
+                "class": "Acquia\\Blt\\Composer\\Plugin",
+                "patches_applied": {
+                    "Provide better Memcached boilerplate config.": "patches/blt/blt.8.9.7.memcached.patch"
+                }
             },
             "autoload": {
                 "psr-4": {
